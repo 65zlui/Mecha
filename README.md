@@ -16,7 +16,7 @@
 
 ### 🎮 Game Overview
 
-A retro pixel-style two-player battle game built with HTML5 Canvas and JavaScript, featuring MVVM architecture for clean and maintainable code.
+A retro pixel-style two-player battle game built with HTML5 Canvas and TypeScript, featuring MVVM architecture for clean and maintainable code.
 
 ### ✨ Features
 
@@ -133,7 +133,7 @@ pixel-mech-battle/
 
 ### 🎯 Technical Features
 
-- Pure HTML5 Canvas + JavaScript implementation, no frameworks needed
+- Pure HTML5 Canvas + TypeScript implementation, no frameworks needed
 - MVVM architecture pattern with clear separation of concerns
 - Model layer: Pure data structures and interfaces
 - ViewModel layer: Business logic and state management
@@ -166,7 +166,7 @@ Feel free to submit Issues and Pull Requests! Let's make this game better togeth
 
 ### 🎮 游戏概述
 
-一款使用 HTML5 Canvas 和 JavaScript 构建的复古像素风格双人对战游戏，采用 MVVM 架构实现清晰易维护的代码结构。
+一款使用 HTML5 Canvas 和 TypeScript 构建的复古像素风格双人对战游戏，采用 MVVM 架构实现清晰易维护的代码结构。
 
 ### ✨ 游戏特色
 
@@ -283,7 +283,7 @@ pixel-mech-battle/
 
 ### 🎯 技术特点
 
-- 纯 HTML5 Canvas + JavaScript 实现，无需任何框架
+- 纯 HTML5 Canvas + TypeScript 实现，无需任何框架
 - MVVM 架构模式，关注点清晰分离
 - 模型层：纯数据结构和接口
 - 视图模型层：业务逻辑和状态管理
