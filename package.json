@@ -1,0 +1,17 @@
+{
+  "name": "pixel-mech-battle",
+  "version": "1.0.0",
+  "description": "A retro pixel-style mech battle game with MVVM architecture",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc && node bundle.js",
+    "dev": "tsc && node bundle.js"
+  },
+  "keywords": ["game", "pixel", "mech", "battle", "typescript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "esbuild": "^0.17.0"
+  }
+}
