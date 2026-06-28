@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "build": "tsc && node bundle.js",
-    "dev": "tsc && node bundle.js"
+    "dev": "npx esbuild src/game.js --bundle --outfile=dist/game.js && npx http-server . -p 3000 -o"
   },
   "keywords": ["game", "pixel", "mech", "battle", "typescript"],
   "author": "",
