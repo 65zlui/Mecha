@@ -1,6 +1,7 @@
 import { SelectionViewModel } from './viewmodels/SelectionViewModel';
 import { SelectionView } from './views/SelectionView';
 import { GameView } from './views/GameView';
+import { I18nService, Locale } from './i18n/I18nService';
 
 export class App {
     private selectionViewModel: SelectionViewModel;
@@ -11,6 +12,11 @@ export class App {
     constructor() {
         const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
         
+        // Initialize i18n
+        I18nService.loadSavedLocale();
+        this.populateLanguageSelector();
+        this.applyTranslations();
+
         this.selectionViewModel = new SelectionViewModel();
         this.selectionView = new SelectionView(
             this.selectionViewModel,
@@ -20,6 +26,33 @@ export class App {
         this.gameView = new GameView(canvas);
 
         this.setupEventListeners();
+    }
+
+    private populateLanguageSelector(): void {
+        const select = document.getElementById('langSelect') as HTMLSelectElement;
+        if (!select) return;
+        select.innerHTML = I18nService.getAvailableLocales()
+            .map(l => `<option value="${l.code}" ${l.code === I18nService.getLocale() ? 'selected' : ''}>${l.name}</option>`)
+            .join('');
+    }
+
+    public switchLanguage(locale: string): void {
+        I18nService.setLocale(locale as Locale);
+        this.applyTranslations();
+        // Re-render current screen if in character/scene selection
+        if (this.currentScreen === 'characterSelection') {
+            this.selectionView.renderCharacterSelection();
+        } else if (this.currentScreen === 'sceneSelection') {
+            this.selectionView.renderSceneSelection();
+        }
+    }
+
+    private applyTranslations(): void {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n')!;
+            el.textContent = I18nService.t(key);
+        });
+        document.title = I18nService.t('title');
     }
 
     private setupEventListeners(): void {
@@ -35,10 +68,10 @@ export class App {
 
         if (screenId === 'characterSelection') {
             this.selectionViewModel.reset();
-            document.getElementById('toSceneBtn')!.disabled = true;
+            (document.getElementById('toSceneBtn') as HTMLButtonElement).disabled = true;
             this.selectionView.renderCharacterSelection();
         } else if (screenId === 'sceneSelection') {
-            document.getElementById('startGameBtn')!.disabled = true;
+            (document.getElementById('startGameBtn') as HTMLButtonElement).disabled = true;
             this.selectionView.renderSceneSelection();
         } else if (screenId === 'gameScreen') {
             const p1 = this.selectionView.getSelectedP1();
@@ -64,8 +97,8 @@ export class App {
     public backToMenu(): void {
         this.gameView.stopGame();
         this.selectionViewModel.reset();
-        document.getElementById('toSceneBtn')!.disabled = true;
-        document.getElementById('startGameBtn')!.disabled = true;
+        (document.getElementById('toSceneBtn') as HTMLButtonElement).disabled = true;
+        (document.getElementById('startGameBtn') as HTMLButtonElement).disabled = true;
         this.showScreen('mainMenu');
     }
 
@@ -75,6 +108,10 @@ export class App {
 }
 
 (window as any).app = new App();
+
+function switchLanguage(locale: string) {
+    (window as any).app.switchLanguage(locale);
+}
 
 function showMainMenu() {
     (window as any).app.showScreen('mainMenu');
@@ -117,3 +154,4 @@ function rematch() {
 (window as any).startGame = startGame;
 (window as any).backToMenu = backToMenu;
 (window as any).rematch = rematch;
+(window as any).switchLanguage = switchLanguage;

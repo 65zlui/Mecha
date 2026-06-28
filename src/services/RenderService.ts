@@ -89,6 +89,26 @@ export class RenderService {
             this.ctx.fillRect(x, y + bounce, mech.width, mech.height);
         }
 
+        // 水晶护盾视觉效果：粉色发光圆形护盾
+        if (mech.shieldActive) {
+            const cx = x + mech.width / 2;
+            const cy = y + mech.height / 2 + bounce;
+            const radius = mech.width * 0.8;
+            this.ctx.beginPath();
+            this.ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = 'rgba(255, 136, 255, 0.2)';
+            this.ctx.fill();
+            this.ctx.strokeStyle = '#ff88ff';
+            this.ctx.lineWidth = 2;
+            this.ctx.stroke();
+            // 护盾内光点
+            const pulse = Math.sin(Date.now() / 200) * 0.3 + 0.5;
+            this.ctx.beginPath();
+            this.ctx.arc(cx, cy, radius * 0.5, 0, Math.PI * 2);
+            this.ctx.fillStyle = `rgba(255, 200, 255, ${pulse * 0.3})`;
+            this.ctx.fill();
+        }
+
         this.ctx.restore();
     }
 }

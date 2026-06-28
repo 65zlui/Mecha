@@ -1,4 +1,4 @@
-import { Character } from './Character';
+import { Character, CharacterStats } from './Character';
 
 export interface MechState {
     x: number;
@@ -19,9 +19,14 @@ export interface MechState {
     attackTimer: number;
     defendTimer: number;
     speed: number;
+    attack: number;
+    defense: number;
     poisonTicks: number;
     shieldActive: boolean;
     lastRegen: number;
+    lastPoisonTick: number;
+    lastNatureHeal: number;
+    lastShieldGain: number;
 }
 
 export class Mech {
@@ -43,9 +48,14 @@ export class Mech {
     public attackTimer: number = 0;
     public defendTimer: number = 0;
     public speed: number;
+    public attack: number;
+    public defense: number;
     public poisonTicks: number = 0;
     public shieldActive: boolean = false;
     public lastRegen: number = 0;
+    public lastPoisonTick: number = 0;
+    public lastNatureHeal: number = 0;
+    public lastShieldGain: number = 0;
 
     constructor(x: number, y: number, character: Character, facingRight: boolean) {
         this.x = x;
@@ -56,9 +66,14 @@ export class Mech {
         this.emoji = character.emoji;
         this.charId = character.id;
 
+        this.attack = character.stats.attack;
+        this.defense = character.stats.defense;
+
+        // 速度基于属性计算：speedStat=45→2.85, 60→3.3, 95→4.35
+        this.speed = 1.5 + (character.stats.speed / 100) * 3;
+        // 泰坦特殊能力：血量上限150
         this.maxHealth = character.id === 'titan' ? 150 : 100;
         this.health = this.maxHealth;
-        this.speed = character.id === 'shadow' ? 4.5 : 3;
         this.facingRight = facingRight;
     }
 
@@ -82,9 +97,14 @@ export class Mech {
             attackTimer: this.attackTimer,
             defendTimer: this.defendTimer,
             speed: this.speed,
+            attack: this.attack,
+            defense: this.defense,
             poisonTicks: this.poisonTicks,
             shieldActive: this.shieldActive,
-            lastRegen: this.lastRegen
+            lastRegen: this.lastRegen,
+            lastPoisonTick: this.lastPoisonTick,
+            lastNatureHeal: this.lastNatureHeal,
+            lastShieldGain: this.lastShieldGain
         };
     }
 
