@@ -3,6 +3,17 @@
 > **EN:** A retro pixel-style two-player battle game with 10 unique characters and 5 battle scenes!  
 > **中:** 一款复古像素风格的双人对战游戏，支持10个独特角色和5个战斗场景！
 
+### 📸 Screenshots | 游戏截图
+
+<p align="center">
+  <img src="docs-main-menu.png" alt="Main Menu" width="45%" />
+  <img src="docs-character-selection.png" alt="Character Selection" width="45%" />
+</p>
+<p align="center">
+  <img src="docs-scene-selection.png" alt="Scene Selection" width="45%" />
+  <img src="docs-battle.png" alt="Battle" width="45%" />
+</p>
+
 ---
 
 ## 🌐 Language | 语言
